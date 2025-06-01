@@ -5,6 +5,10 @@
   <title>Joel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/main.js" defer="defer"></script>
+  <script src="js/dictionary.js"></script>
+  <script src="js/sentences.js"></script>
   <style type="text/css">
     html,
     body {
@@ -12,6 +16,7 @@
       margin: 0;
       padding: 0;
       font-family: sans-serif;
+      overflow: hidden;
     }
 
     #captcha-container {
@@ -20,33 +25,161 @@
       height: 300px;
     }
 
-    /* Your style here... */
+    #div_quiz {
+      position: absolute;
+      inset: 0;
+    }
+
+    #span_quiz {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+      background: white;
+      padding: 6px;
+      z-index: 2;
+    }
+
+    #div_input_quiz {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    #input_quiz {
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 5px;
+      font-size: 1.5em;
+      text-align: center;
+      z-index: 2;
+    }
+
+    #div_sky {
+      position: absolute;
+      inset: 0;
+      top: 30px;
+      background: darkblue;
+      z-index: 0;
+    }
+    
+    .div_star {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      transition: left 1s, top 1s;
+      z-index: 1;
+    }
+    
+    .div_star svg {
+      transition: all 1s;
+    }
+
+    .span_quiz_response {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      padding-top: 5px;
+      z-index: 1;
+    }
+
+    .response_, .response_default {
+      color: white;
+    }
+
+    .response_fail {
+      background: #a00;
+      color: white;
+    }
+
+    #div_test {
+      text-align: center;
+    }
+
+    #span_test {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      font-weight: bold;
+      background: white;
+      padding: 6px;
+      z-index: 2;
+    }
+
+    #span_sentence {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+    
+    #div_test_buttons {
+      position: absolute;
+      display: flex;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      justify-content: space-evenly;
+    }
+
+    #div_test_buttons > button {
+        flex: 1;
+        font-size: 1.2em;
+        font-weight: bold;
+        padding: 15px;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #btn_disagree {
+      background: #faa;
+    }
+
+    #btn_disagree:hover {
+      background: #a88;
+    }
+
+    #btn_confirm {
+      background: #afa;
+    }
+
+    #btn_confirm:hover {
+      background: #8a8;
+    }
   </style>
 </head>
 
 <body>
   <div id="captcha-container">
-    <!-- Add your CAPTCHA here: -->
-    Hello world!
-
-    <!-- We've added a sample button. Feel free to remove it: -->
-    <button id="solve">
-      Solve!
-    </button>
+    <div id="div_first">
+      <div id="div_sky"></div>
+      <div id="div_quiz">
+        <span id="span_quiz">Identify the object to prove you are human!</span>
+        <div id="div_input_quiz">
+          <input type="text" id="input_quiz" autocomplete="off"/>
+        </div>
+      </div>
+      <svg id="svg_star_template" stroke="#fff" fill="#fff" viewBox="0 0 24 24" height="16" width="16" style="display: none;">
+        <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"></path>
+      </svg>
+    </div>
+    <div id="div_second" style="display: none">
+      <div id="div_test">
+        <span id="span_test">Confirm the following statements!</span>
+        <span id="span_sentence"></span>
+        <div id="div_test_buttons">
+          <button type="button" id="btn_disagree">Disagree</button>
+          <button type="button" id="btn_confirm">Confirm</button>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <script type="text/javascript">
-    (function(window, document){
-      // This is how you tell the parent window that the CAPTCHA was successful.
-      function captchaSuccess() {
-        window.top.postMessage("success", '*');
-      }
-
-      // Your CAPTCHA code goes here, we've added a simple example below:
-      document.getElementById('solve')
-           .addEventListener('click', () => captchaSuccess());
-
-    })(window, document);
-  </script>
-</body>
 </html>
