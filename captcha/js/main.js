@@ -90,7 +90,7 @@
 
                         $(".span_quiz_response").remove();
 
-                        if (word.length > 2 && randomCorrect > 40 && fn.WordList.indexOf(word) == -1 && fn.WrongList.indexOf(word) == -1 && fn.Dictionary[word]) {
+                        if ((word.length > 2 && randomCorrect > 40 && fn.WordList.indexOf(word) == -1 && fn.WrongList.indexOf(word) == -1 && fn.Dictionary[word]) == '') {
                             fn.WrongList = [];
                             fn.WordList.push(word);
 
